@@ -10,7 +10,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE)
 VER = 'v0.9'
 XDELTA = r'C:\claude\utils\xdelta.exe'
 ROM = 'Dragon Master Silk (Japan)'
-SRC = os.path.join(r'C:\claude\roms\ss', ROM)
+SRC = os.path.join(r'D:\hospi\My Documents\한글패치\SS\ss', ROM)
 OUT = os.path.join(ROOT, 'dist', 'build', ROM)
 NAME = 'DragonMasterSilk_KR_' + VER
 TITLE = '드래곤 마스터 실크 (Dragon Master Silk, 세가 새턴 일본판) 한글 패치 ' + VER
