@@ -3,6 +3,8 @@ r"""하스피 번역 받기(2026-10-26) — my files/드마실크번역/*.tsv(�
   → 번호(NN)로 짝지어 data/번역할것/텍스트_NN.tsv 와 «번호·원문» 줄 대조 → data/번역/텍스트_NN.tsv(같은 열: 번호 종류 최대바이트 원문 번역 메모 곳)
   검사만: python tools/merge_tr.py --check  (my files 는 읽기만)"""
 import glob, os, re, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import quotes
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, 'my files', '드마실크번역')
 
@@ -191,6 +193,8 @@ def main():
                 if c[4] == FIX[c[0]][0]: c[4] = FIX[c[0]][1]
                 else: bad.append((nn, c[0], '고침 표와 받은 글 다름'))
             u = unify(c[0], c[3], c[4]).replace('을(를)', '').replace('ッ', '')   # «ッ» = 남은 일본어 촉음(실기 «네놈＝ッ!!»)    # 하스피 «을(를) 빼기»(2026-10-26 밤, 소드앤소서리와 같게)
+            u = quotes.restore(c[3], u)[0].replace("'미인박명'", '미인박명')   # 반각 '…' "…" → 원문 괄호 『』「」“”(하스피 «원문으로 되돌려줘» 2026-10-26)
+            if c[0] == '02398': u = u.replace('“귀엽다”', '「귀엽다」')
             if u != c[4]: changed.append((c[0], c[4], u)); c[4] = u
             if len(t) > 5 and t[5]: c[5] = t[5]
             if c[4].strip(): k += 1
